@@ -49,7 +49,7 @@ SELECT
 FROM 
 	portfolio_proj..CovidDeaths
 ORDER BY 
-	1,2
+	1,2;
 
 --Looking at cases VS population
 SELECT 
@@ -61,7 +61,7 @@ SELECT
 FROM 
 	portfolio_proj..CovidDeaths
 ORDER BY 
-	1,2
+	1,2;
 
 --Looking at countries with highest infection rate
 SELECT 
@@ -85,7 +85,7 @@ WHERE
 GROUP BY 
 	location
 ORDER BY 
-	total_death_count DESC
+	total_death_count DESC;
 
 --Continent wise analysis
 SELECT 
@@ -98,7 +98,7 @@ WHERE
 GROUP BY 
 	continent
 ORDER BY 
-	total_death_count DESC
+	total_death_count DESC;
 
 --Global numbers
 SELECT 
@@ -113,7 +113,7 @@ WHERE
 GROUP BY 
 	date
 ORDER BY 
-	1,2
+	1,2;
 
 
 
@@ -127,7 +127,7 @@ FROM portfolio_proj..CovidDeaths
 
 GROUP BY location, date
 
-HAVING COUNT(*) > 1
+HAVING COUNT(*) > 1;
 
 --For CovidVaccinations:
 SELECT location, date, COUNT(*)
@@ -136,7 +136,7 @@ FROM portfolio_proj..CovidVaccinations
 
 GROUP BY location,date
 
-HAVING COUNT(*) > 1
+HAVING COUNT(*) > 1;
 
 --Checking the join
 SELECT DISTINCT
@@ -148,7 +148,7 @@ JOIN
 	ON dea.location=vac.location AND dea.date=vac.date
 WHERE
 	 dea.continent is NOT NULL
-ORDER BY 3,2,4
+ORDER BY 3,2,4;
 
 --Looking at the vaccination 
 SELECT 
@@ -165,7 +165,7 @@ JOIN
 WHERE 
 	dea.continent IS NOT NULL 
 ORDER BY 
-	dea.location,dea.date
+	dea.location,dea.date;
 
 --Looking at vaccination percentage of each country using CTE
 WITH popvsvac (continent,location,date,population,new_vaccinations,CumulativeVacination)
@@ -190,7 +190,7 @@ SELECT
 	*, 
 	(CumulativeVacination/population)*100 AS VacPerc FROM popvsvac 
 ORDER BY 
-	2,3
+	2,3;
 
 --Looking at vaccination percentage of each country using Temp Table
 --Creating the Temp Table #VaccinationPercentage
@@ -203,7 +203,7 @@ CREATE TABLE #VaccinationPercentage
 	population numeric,
 	new_vaccinations numeric,
 	CumulativeVacination Numeric
-)
+);
 
 --Inserting Data into the Temp Table
 INSERT INTO #VaccinationPercentage
@@ -220,7 +220,7 @@ INSERT INTO #VaccinationPercentage
 		portfolio_proj..CovidVaccinations AS vac 
 		ON dea.location=vac.location AND dea.date=vac.date
 	WHERE 
-		dea.continent IS NOT NULL 
+		dea.continent IS NOT NULL ;
 --Checking the Temp Table
 SELECT 
 	*, 
@@ -228,7 +228,7 @@ SELECT
 FROM 
 	#VaccinationPercentage
 ORDER BY 
-	2,3
+	2,3;
 
 
 CREATE VIEW VaccinationPercentage AS
