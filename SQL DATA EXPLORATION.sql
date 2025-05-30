@@ -65,6 +65,20 @@ GROUP BY
 ORDER BY 
 	PercentPopulationInfected DESC;
 
+--Date wise breakdown of infection rate 
+SELECT 
+	Location, 
+	Population,
+	date, 
+	MAX(total_cases) as HighestInfectionCount,  
+	Max((total_cases/population))*100 as PercentPopulationInfected
+FROM 
+	portfolio_proj..CovidDeaths
+GROUP BY 
+	Location, Population, date
+ORDER BY
+	PercentPopulationInfected DESC
+
 
 --Looking at total cases VS deaths day wise in very country
 SELECT 
